@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#1f291f" />
-    <meta name="description" content="Explore Olfah's pool and garden amenities in interactive 360-degree panoramas." />
-    <title>Olfah Amenities — 360° Views</title>
+    <meta name="description" content="Explore eight immersive, eye-level views of Olfah in interactive 360-degree panoramas." />
+    <title>Olfah — Eight 360° Views</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./vendor/pannellum.css" />
     <style>
       :root {
         color-scheme: dark;
-        font-family: "Figtree", sans-serif;
+        font-family: "Geist", sans-serif;
         --ink: #1f291f;
         --ivory: #f2efe6;
         --sage: #cbd4c2;
@@ -99,13 +99,18 @@
         display: flex;
         align-items: center;
         gap: 4px;
+        max-width: min(76vw, 980px);
+        overflow-x: auto;
+        scrollbar-width: none;
         padding: 4px;
         border: 1px solid rgba(255,255,255,.3);
         background: rgba(24,34,24,.42);
         backdrop-filter: blur(14px);
         box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
       }
+      .scene-switcher::-webkit-scrollbar { display: none; }
       .scene-button {
+        flex: none;
         min-height: 34px;
         padding: 0 14px;
         border: 0;
@@ -120,6 +125,11 @@
       }
       .scene-button:hover { color: white; }
       .scene-button[aria-pressed="true"] { color: var(--ink); background: var(--ivory); }
+      body.is-embed .back,
+      body.is-embed .brand,
+      body.is-embed .hint,
+      body.is-embed .scene-switcher { display: none; }
+      body.is-embed .bottombar { display: none; }
 
       .intro {
         position: fixed;
@@ -173,9 +183,9 @@
 
       <div class="intro" id="intro" role="status" aria-live="polite">
         <div class="intro-inner">
-          <span class="intro-label">Interactive 360° experience</span>
+          <span class="intro-label">Eight-scene 360° experience</span>
           <h1>Step into Olfah.</h1>
-          <p>Loading the pool courtyard. Once ready, drag to look around, scroll or pinch to zoom, and use the controls for fullscreen or motion view.</p>
+          <p>Loading Olfah at eye level. Once ready, drag to look around, scroll or pinch to zoom, and move between eight immersive viewpoints.</p>
           <div class="loading-line" aria-hidden="true"></div>
         </div>
       </div>
@@ -207,6 +217,12 @@
           <div class="scene-switcher" role="group" aria-label="Choose a 360-degree scene">
             <button class="scene-button" type="button" data-scene="pool" aria-pressed="true">Pool</button>
             <button class="scene-button" type="button" data-scene="garden" aria-pressed="false">Garden &amp; BBQ</button>
+            <button class="scene-button" type="button" data-scene="woodland" aria-pressed="false">Woodland</button>
+            <button class="scene-button" type="button" data-scene="lawn" aria-pressed="false">Central lawn</button>
+            <button class="scene-button" type="button" data-scene="play" aria-pressed="false">Play garden</button>
+            <button class="scene-button" type="button" data-scene="fitness" aria-pressed="false">Fitness</button>
+            <button class="scene-button" type="button" data-scene="promenade" aria-pressed="false">Promenade</button>
+            <button class="scene-button" type="button" data-scene="home" aria-pressed="false">Apartment</button>
           </div>
         </div>
       </div>
@@ -215,8 +231,20 @@
     <script src="./vendor/pannellum.js"></script>
     <script>
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const initialScene = new URLSearchParams(window.location.search).get('scene') === 'garden' ? 'garden' : 'pool';
-      const sceneLabels = { pool: 'Pool courtyard', garden: 'Garden & BBQ' };
+      const params = new URLSearchParams(window.location.search);
+      const sceneLabels = {
+        pool: 'Pool courtyard',
+        garden: 'Garden & BBQ',
+        woodland: 'Woodland walk',
+        lawn: 'Central lawn',
+        play: 'Play garden',
+        fitness: 'Fitness plaza',
+        promenade: 'Evening promenade',
+        home: 'Apartment home'
+      };
+      const requestedScene = params.get('scene');
+      const initialScene = Object.hasOwn(sceneLabels, requestedScene) ? requestedScene : 'pool';
+      if (params.get('embed') === '1') document.body.classList.add('is-embed');
       const viewer = pannellum.viewer('panorama', {
         default: {
           firstScene: initialScene,
@@ -247,6 +275,36 @@
             type: 'equirectangular',
             panorama: '../assets/olfah-garden-bbq-360.png',
             fallback: '../assets/olfah-garden-bbq-360.png'
+          },
+          woodland: {
+            type: 'equirectangular',
+            panorama: '../assets/woodland-walk-360.jpg',
+            fallback: '../assets/woodland-walk-360.jpg'
+          },
+          lawn: {
+            type: 'equirectangular',
+            panorama: '../assets/central-lawn-360.jpg',
+            fallback: '../assets/central-lawn-360.jpg'
+          },
+          play: {
+            type: 'equirectangular',
+            panorama: '../assets/play-garden-360.jpg',
+            fallback: '../assets/play-garden-360.jpg'
+          },
+          fitness: {
+            type: 'equirectangular',
+            panorama: '../assets/fitness-plaza-360.jpg',
+            fallback: '../assets/fitness-plaza-360.jpg'
+          },
+          promenade: {
+            type: 'equirectangular',
+            panorama: '../assets/residential-promenade-360.jpg',
+            fallback: '../assets/residential-promenade-360.jpg'
+          },
+          home: {
+            type: 'equirectangular',
+            panorama: '../assets/apartment-home-360.jpg',
+            fallback: '../assets/apartment-home-360.jpg'
           }
         }
       });
@@ -284,7 +342,8 @@
           if (nextScene === viewer.getScene()) return;
           syncSceneControls(nextScene);
           viewer.loadScene(nextScene, -4, 0, 112);
-          window.history.replaceState({}, '', `${window.location.pathname}?scene=${nextScene}`);
+          const embed = document.body.classList.contains('is-embed') ? '&embed=1' : '';
+          window.history.replaceState({}, '', `${window.location.pathname}?scene=${nextScene}${embed}`);
         });
       });
 

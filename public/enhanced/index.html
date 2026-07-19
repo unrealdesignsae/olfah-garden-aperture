@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#20281f" />
+    <meta name="description" content="The complete high-resolution enhanced image collection for Olfah." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
+    <title>Olfah Enhanced Image Collection</title>
+    <style>
+      :root { color: #20281f; background: #ede8dc; font-family: Geist, sans-serif; font-synthesis: none; }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { margin: 0; min-width: 320px; }
+      a { color: inherit; text-decoration: none; }
+      img { display: block; max-width: 100%; }
+      button { font: inherit; }
+      :focus-visible { outline: 2px solid #b66f50; outline-offset: 4px; }
+      .shell { width: min(100% - 40px, 1440px); margin-inline: auto; }
+      header { position: sticky; top: 0; z-index: 10; border-bottom: 1px solid rgb(32 40 31 / 14%); background: rgb(237 232 220 / 88%); backdrop-filter: blur(18px); }
+      nav { display: flex; min-height: 72px; align-items: center; justify-content: space-between; gap: 24px; }
+      nav img { width: 72px; }
+      .back { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+      .hero { padding: clamp(84px, 12vw, 176px) 0 clamp(72px, 9vw, 128px); }
+      .kicker { margin: 0; color: #65705f; font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+      h1 { max-width: 1100px; margin: 24px 0 0; font-family: 'Cormorant Garamond', serif; font-size: clamp(58px, 9vw, 138px); font-weight: 500; letter-spacing: -.055em; line-height: .82; }
+      h1 em { color: #78866f; font-weight: 500; }
+      .intro { display: grid; gap: 30px; margin-top: 52px; border-top: 1px solid rgb(32 40 31 / 22%); padding-top: 24px; }
+      .intro p { max-width: 65ch; margin: 0; color: #53604f; font-size: 16px; line-height: 1.75; }
+      .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+      .action { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; border: 1px solid #20281f; padding: 0 20px; font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; transition: .3s cubic-bezier(.16,1,.3,1); }
+      .action.primary { background: #20281f; color: #f6f1e8; }
+      .action:hover { transform: translateY(-2px); background: #b66f50; border-color: #b66f50; color: #f6f1e8; }
+      .proof { margin-bottom: clamp(90px, 12vw, 170px); }
+      .proof-link { display: grid; overflow: hidden; background: #20281f; color: #f6f1e8; }
+      .proof-link img { width: 100%; max-height: 640px; object-fit: cover; object-position: top; opacity: .86; transition: transform .8s cubic-bezier(.16,1,.3,1), opacity .8s; }
+      .proof-link:hover img { transform: scale(1.015); opacity: 1; }
+      .proof-copy { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 24px; }
+      .proof-copy strong { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 3vw, 40px); font-weight: 500; }
+      .proof-copy span { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+      .collection { padding-bottom: clamp(100px, 14vw, 190px); }
+      .collection-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; border-bottom: 1px solid rgb(32 40 31 / 22%); padding-bottom: 24px; }
+      .collection-head h2 { margin: 0; font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 6vw, 84px); font-weight: 500; letter-spacing: -.045em; line-height: .9; }
+      .collection-head span { color: #65705f; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+      .grid { display: grid; grid-auto-flow: dense; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 10px; padding-top: 10px; }
+      .image-card { grid-column: span 12; overflow: hidden; background: #20281f; color: #f6f1e8; }
+      .image-wrap { aspect-ratio: 16 / 10; overflow: hidden; background: #3b4637; }
+      .image-card.portrait .image-wrap { aspect-ratio: 4 / 5; }
+      .image-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.16,1,.3,1); }
+      .image-card:hover img { transform: scale(1.025); }
+      .meta { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 18px; }
+      .meta strong { overflow: hidden; font-size: 12px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+      .meta span { flex: none; color: rgb(246 241 232 / 62%); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+      footer { background: #20281f; color: #f6f1e8; }
+      footer .shell { display: flex; min-height: 180px; align-items: center; justify-content: space-between; gap: 30px; }
+      footer img { width: 100px; filter: brightness(0) invert(1); }
+      footer p { max-width: 470px; margin: 0; color: rgb(246 241 232 / 62%); font-size: 13px; line-height: 1.7; }
+      @media (min-width: 720px) {
+        .intro { grid-template-columns: 1fr auto; align-items: end; }
+        .image-card { grid-column: span 6; }
+        .image-card:nth-child(5n + 1) { grid-column: span 7; }
+        .image-card:nth-child(5n + 2) { grid-column: span 5; }
+      }
+      @media (max-width: 719px) {
+        .shell { width: min(100% - 32px, 1440px); }
+        .proof-copy, .collection-head, footer .shell { align-items: flex-start; flex-direction: column; }
+        footer .shell { justify-content: center; padding-block: 48px; }
+      }
+      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="shell">
+        <a href="/" aria-label="Return to Olfah landing page"><img src="/assets/olfah-logo.svg" alt="Olfah" /></a>
+        <a class="back" href="/">Return to the experience <span aria-hidden="true">→</span></a>
+      </nav>
+    </header>
+    <main>
+      <section class="hero shell">
+        <p class="kicker">High-resolution image collection</p>
+        <h1>Every view,<br /><em>recreated with atmosphere.</em></h1>
+        <div class="intro">
+          <p>Twenty-four Olfah renders recreated at presentation-grade resolution: eighteen warm afternoon views and six blue-hour scenes. The architectural geometry, camera position and defining composition remain anchored to the source while planting, people, material response and light have been rebuilt for a cleaner, more photographic result.</p>
+          <div class="actions">
+            <a class="action primary" href="/enhanced/olfah-enhanced-images.zip" download>Download all images</a>
+            <a class="action" href="/enhanced/olfah-enhancement-proof.jpg">Open proof sheet</a>
+            <a class="action" href="/enhanced/olfah-panorama-scenes.zip" download>Download 8 panoramas</a>
+            <a class="action" href="/360/index.html">Open 360° viewer</a>
+          </div>
+        </div>
+      </section>
+      <section class="proof shell">
+        <a class="proof-link" href="/enhanced/olfah-enhancement-proof.jpg">
+          <img src="/enhanced/olfah-enhancement-proof.jpg" alt="Contact sheet showing all recreated high-resolution Olfah renders" />
+          <div class="proof-copy"><strong>The complete recreated visual collection.</strong><span>Open full proof</span></div>
+        </a>
+      </section>
+      <section class="proof shell">
+        <a class="proof-link" href="/enhanced/olfah-panorama-proof.jpg">
+          <img src="/enhanced/olfah-panorama-proof.jpg" alt="Contact sheet showing all eight Olfah 360-degree panorama scenes" />
+          <div class="proof-copy"><strong>Eight places, seen from inside.</strong><span>Open panorama proof</span></div>
+        </a>
+      </section>
+      <section class="collection shell">
+        <div class="collection-head"><h2>The complete collection.</h2><span id="count">Loading image manifest</span></div>
+        <div class="grid" id="image-grid" aria-live="polite"></div>
+      </section>
+    </main>
+    <footer>
+      <div class="shell">
+        <img src="/assets/olfah-logo.svg" alt="Olfah" />
+        <p>Forest-inspired residences in Muwaileh, Sharjah. One, two and three bedroom apartments by Alef Group.</p>
+      </div>
+    </footer>
+    <script>
+      const grid = document.querySelector('#image-grid')
+      const count = document.querySelector('#count')
+      fetch('/enhanced/resolution-manifest.json')
+        .then((response) => response.json())
+        .then((items) => {
+          count.textContent = `${items.length} enhanced renders`
+          items.forEach((item) => {
+            const link = document.createElement('a')
+            link.className = `image-card ${item.enhanced[1] > item.enhanced[0] ? 'portrait' : ''}`
+            link.href = `/assets/${item.filename}`
+            link.download = item.filename
+            link.innerHTML = `<div class="image-wrap"><img src="/assets/${item.filename}" alt="Enhanced Olfah render: ${item.filename}" loading="lazy" /></div><div class="meta"><strong>${item.filename}</strong><span>${item.enhanced[0]} × ${item.enhanced[1]}</span></div>`
+            grid.appendChild(link)
+          })
+        })
+        .catch(() => { count.textContent = 'Image manifest unavailable' })
+    </script>
+  </body>
+</html>

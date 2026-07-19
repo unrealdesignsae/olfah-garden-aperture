@@ -1,0 +1,386 @@
+[
+  {
+    "filename": "exterior-01.jpg",
+    "category": "day",
+    "original": [
+      2048,
+      1066
+    ],
+    "generated": [
+      1738,
+      905
+    ],
+    "enhanced": [
+      3840,
+      2000
+    ]
+  },
+  {
+    "filename": "exterior-02.jpg",
+    "category": "day",
+    "original": [
+      2048,
+      1066
+    ],
+    "generated": [
+      1738,
+      905
+    ],
+    "enhanced": [
+      3840,
+      2000
+    ]
+  },
+  {
+    "filename": "exterior-03.jpg",
+    "category": "day",
+    "original": [
+      2048,
+      1066
+    ],
+    "generated": [
+      1738,
+      905
+    ],
+    "enhanced": [
+      3840,
+      2000
+    ]
+  },
+  {
+    "filename": "exterior-04.jpg",
+    "category": "day",
+    "original": [
+      2560,
+      1333
+    ],
+    "generated": [
+      1738,
+      905
+    ],
+    "enhanced": [
+      3840,
+      2000
+    ]
+  },
+  {
+    "filename": "exterior-05.jpg",
+    "category": "day",
+    "original": [
+      2560,
+      1333
+    ],
+    "generated": [
+      1738,
+      905
+    ],
+    "enhanced": [
+      3840,
+      2000
+    ]
+  },
+  {
+    "filename": "exterior-06.jpg",
+    "category": "day",
+    "original": [
+      2560,
+      1333
+    ],
+    "generated": [
+      1738,
+      905
+    ],
+    "enhanced": [
+      3840,
+      2000
+    ]
+  },
+  {
+    "filename": "exterior-07.jpg",
+    "category": "day",
+    "original": [
+      2560,
+      1333
+    ],
+    "generated": [
+      1738,
+      905
+    ],
+    "enhanced": [
+      3840,
+      2000
+    ]
+  },
+  {
+    "filename": "exterior-08.jpg",
+    "category": "day",
+    "original": [
+      2560,
+      1333
+    ],
+    "generated": [
+      1734,
+      907
+    ],
+    "enhanced": [
+      3840,
+      2009
+    ]
+  },
+  {
+    "filename": "interior-01.jpg",
+    "category": "day",
+    "original": [
+      2560,
+      1333
+    ],
+    "generated": [
+      1737,
+      905
+    ],
+    "enhanced": [
+      3840,
+      2001
+    ]
+  },
+  {
+    "filename": "interior-02.jpg",
+    "category": "day",
+    "original": [
+      2560,
+      1333
+    ],
+    "generated": [
+      1738,
+      905
+    ],
+    "enhanced": [
+      3840,
+      2000
+    ]
+  },
+  {
+    "filename": "interior-03.jpg",
+    "category": "day",
+    "original": [
+      2560,
+      1333
+    ],
+    "generated": [
+      1738,
+      905
+    ],
+    "enhanced": [
+      3840,
+      2000
+    ]
+  },
+  {
+    "filename": "community-aerial.jpg",
+    "category": "day",
+    "original": [
+      1416,
+      698
+    ],
+    "generated": [
+      1786,
+      881
+    ],
+    "enhanced": [
+      3840,
+      1894
+    ]
+  },
+  {
+    "filename": "amenity-trails.jpg",
+    "category": "day",
+    "original": [
+      352,
+      480
+    ],
+    "generated": [
+      1074,
+      1464
+    ],
+    "enhanced": [
+      2817,
+      3840
+    ]
+  },
+  {
+    "filename": "amenity-outdoor-fitness.jpg",
+    "category": "day",
+    "original": [
+      352,
+      480
+    ],
+    "generated": [
+      1075,
+      1463
+    ],
+    "enhanced": [
+      2822,
+      3840
+    ]
+  },
+  {
+    "filename": "amenity-gym.jpg",
+    "category": "day",
+    "original": [
+      352,
+      480
+    ],
+    "generated": [
+      1075,
+      1464
+    ],
+    "enhanced": [
+      2820,
+      3840
+    ]
+  },
+  {
+    "filename": "amenity-play.jpg",
+    "category": "day",
+    "original": [
+      352,
+      480
+    ],
+    "generated": [
+      1074,
+      1464
+    ],
+    "enhanced": [
+      2817,
+      3840
+    ]
+  },
+  {
+    "filename": "amenity-retreats.jpg",
+    "category": "day",
+    "original": [
+      352,
+      480
+    ],
+    "generated": [
+      1075,
+      1463
+    ],
+    "enhanced": [
+      2822,
+      3840
+    ]
+  },
+  {
+    "filename": "amenity-bbq.jpg",
+    "category": "day",
+    "original": [
+      352,
+      480
+    ],
+    "generated": [
+      1074,
+      1464
+    ],
+    "enhanced": [
+      2817,
+      3840
+    ]
+  },
+  {
+    "filename": "hero-desktop.jpg",
+    "category": "night",
+    "original": [
+      2560,
+      1420
+    ],
+    "generated": [
+      1683,
+      934
+    ],
+    "enhanced": [
+      3840,
+      2131
+    ]
+  },
+  {
+    "filename": "hero-mobile.jpg",
+    "category": "night",
+    "original": [
+      786,
+      1624
+    ],
+    "generated": [
+      872,
+      1802
+    ],
+    "enhanced": [
+      1858,
+      3840
+    ]
+  },
+  {
+    "filename": "footer-architecture.jpg",
+    "category": "night",
+    "original": [
+      2560,
+      928
+    ],
+    "generated": [
+      2081,
+      755
+    ],
+    "enhanced": [
+      3840,
+      1393
+    ]
+  },
+  {
+    "filename": "night-aerial.jpg",
+    "category": "night",
+    "original": [
+      1788,
+      880
+    ],
+    "generated": [
+      1788,
+      880
+    ],
+    "enhanced": [
+      3840,
+      1890
+    ]
+  },
+  {
+    "filename": "night-park.jpg",
+    "category": "night",
+    "original": [
+      1738,
+      905
+    ],
+    "generated": [
+      1738,
+      905
+    ],
+    "enhanced": [
+      3840,
+      2000
+    ]
+  },
+  {
+    "filename": "night-pool.jpg",
+    "category": "night",
+    "original": [
+      1738,
+      905
+    ],
+    "generated": [
+      1738,
+      905
+    ],
+    "enhanced": [
+      3840,
+      2000
+    ]
+  }
+]

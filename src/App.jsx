@@ -7,41 +7,41 @@ gsap.registerPlugin(ScrollTrigger)
 
 const heroScenes = [
   {
-    label: 'The forest within',
+    label: 'Blue hour at Olfah',
     image: '/assets/hero-desktop.jpg',
     mobile: '/assets/hero-mobile.jpg',
     position: 'center',
   },
   {
-    label: 'A walkable heart',
-    image: '/assets/community-aerial.jpg',
+    label: 'The park after dark',
+    image: '/assets/night-park.jpg',
     position: 'center 45%',
   },
   {
-    label: 'Homes in harmony',
-    image: '/assets/exterior-05.jpg',
+    label: 'Nature at its largest',
+    image: '/assets/night-aerial.jpg',
     position: 'center 42%',
   },
 ]
 
 const amenities = [
-  { title: 'Serene Woodland Walking Trails', image: '/assets/amenity-trails.jpg' },
-  { title: 'Outdoor Fitness Spaces', image: '/assets/amenity-outdoor-fitness.jpg' },
-  { title: 'State-of-the-Art Indoor Gym', image: '/assets/amenity-gym.jpg' },
-  { title: "Vibrant Children's Play Zones", image: '/assets/amenity-play.jpg' },
-  { title: 'Lush Landscaped Green Retreats', image: '/assets/amenity-retreats.jpg' },
-  { title: 'Family-Friendly Communal BBQ Areas', image: '/assets/amenity-bbq.jpg' },
+  { title: 'Woodland walk', copy: 'Shaded walking routes with places to pause beneath the canopy.', image: '/assets/amenity-trails.jpg' },
+  { title: 'Outdoor gym', copy: 'Open-air exercise equipment woven into the landscape.', image: '/assets/amenity-outdoor-fitness.jpg' },
+  { title: 'Indoor wellness', copy: 'A state-of-the-art gym for year-round movement and wellbeing.', image: '/assets/amenity-gym.jpg' },
+  { title: "Children's play", copy: 'Play zones, sand play and a dedicated kids’ waterpark.', image: '/assets/amenity-play.jpg' },
+  { title: 'Lawn hills', copy: 'Mounded recreational lawns and lush green retreats for slower days.', image: '/assets/amenity-retreats.jpg' },
+  { title: 'Family BBQ', copy: 'Communal picnic and barbecue areas made for gathering.', image: '/assets/amenity-bbq.jpg' },
 ]
 
 const destinationDetails = [
-  ['01', "Sharjah's largest private community park", 'Expansive panoramas shaped around everyday community life.'],
-  ['02', '26,000 m² of green space', 'Landscaped nature and entertainment areas across the community.'],
-  ['03', '1, 2 & 3 bedroom apartments', 'World-class off-plan residences in Sharjah.'],
-  ['04', '5 swimming pools', 'Dedicated water spaces for children and adults.'],
-  ['05', 'Amphitheatre & climbing wall', 'With informal seating and a grass stage area.'],
-  ['06', 'Interactive water features', 'Paired with a generous recreational lawn.'],
-  ['07', 'Freehold ownership', 'Open to buyers of all nationalities.'],
-  ['08', 'Flexible payment plans', 'Available directly from Alef Group.'],
+  ['01', "Sharjah's largest private community park", 'An elevated podium park covering more than 26,000 m².'],
+  ['02', '84,814.40 m² total community', 'Twelve residential buildings arranged across a single-level platform.'],
+  ['03', '57,529.6 m² between the buildings', 'Vast green spaces and recreational areas designed for tranquillity and everyday entertainment.'],
+  ['04', 'Five swimming pools', 'A 25 m lap pool, children’s pool, jacuzzi and three large recreational pools.'],
+  ['05', 'Amphitheatre & climbing wall', 'Outdoor performance seating paired with a grass stage area.'],
+  ['06', 'Water, lawn and play', 'Interactive water features, lawn mounds, kids’ waterpark and sand play.'],
+  ['07', 'Movement through nature', 'Jogging and cycle paths, woodland seating and outdoor exercise equipment.'],
+  ['08', 'Everyday gathering', 'Family BBQ and picnic areas, retail units and private gardens for select ground-floor homes.'],
 ]
 
 const gallery = {
@@ -56,13 +56,32 @@ const gallery = {
     '/assets/exterior-08.jpg',
   ],
   interior: ['/assets/interior-01.jpg', '/assets/interior-02.jpg', '/assets/interior-03.jpg'],
+  night: ['/assets/night-pool.jpg', '/assets/night-park.jpg', '/assets/night-aerial.jpg', '/assets/hero-desktop.jpg', '/assets/footer-architecture.jpg'],
 }
 
+const nightScenes = [
+  { title: 'Pool glow', label: 'Hidden light beneath the canopy', image: '/assets/night-pool.jpg' },
+  { title: 'Park at dusk', label: 'Landscape lighting guides the way', image: '/assets/night-park.jpg' },
+  { title: 'The whole community', label: 'A quiet constellation from above', image: '/assets/night-aerial.jpg' },
+]
+
+const panoramaScenes = [
+  { id: 'pool', title: 'Pool courtyard', note: 'Water & landscape', image: '/assets/exterior-02.jpg' },
+  { id: 'garden', title: 'Garden & BBQ', note: 'Community gathering', image: '/assets/amenity-bbq.jpg' },
+  { id: 'woodland', title: 'Woodland walk', note: 'Eye-level afternoon', image: '/assets/amenity-trails.jpg' },
+  { id: 'lawn', title: 'Central lawn', note: 'The park heart', image: '/assets/exterior-03.jpg' },
+  { id: 'play', title: 'Play garden', note: 'Family landscape', image: '/assets/amenity-play.jpg' },
+  { id: 'fitness', title: 'Fitness plaza', note: 'Outdoor movement', image: '/assets/amenity-outdoor-fitness.jpg' },
+  { id: 'promenade', title: 'Evening promenade', note: 'Blue-hour arrival', image: '/assets/night-park.jpg' },
+  { id: 'home', title: 'Apartment home', note: 'Interior panorama', image: '/assets/interior-03.jpg' },
+]
+
 const navItems = [
-  ['01', 'Story', '#story'],
-  ['02', 'Amenities', '#amenities'],
-  ['03', 'Residences', '#residences'],
-  ['04', 'Location', '#location'],
+  ['Story', '#story'],
+  ['Amenities', '#amenities'],
+  ['Residences', '#residences'],
+  ['360° Tour', '#panorama'],
+  ['Location', '#location'],
 ]
 
 function Arrow({ direction = 'right' }) {
@@ -83,10 +102,9 @@ function Header({ menuOpen, setMenuOpen }) {
         </a>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
-          {navItems.map(([index, label, href]) => (
+          {navItems.map(([label, href]) => (
             <a key={href} className="nav-link" href={href}>
-              <span>{index}</span>
-              <b>/ {label}</b>
+              <b>{label}</b>
             </a>
           ))}
         </nav>
@@ -110,9 +128,9 @@ function Header({ menuOpen, setMenuOpen }) {
       <div id="mobile-menu" className={`mobile-menu md:hidden ${menuOpen ? 'is-open' : ''}`}>
         <div className="mobile-menu-inner">
           <nav aria-label="Mobile navigation">
-            {navItems.map(([index, label, href]) => (
+            {navItems.map(([label, href]) => (
               <a key={href} href={href} onClick={() => setMenuOpen(false)}>
-                <small>{index}</small>{label}
+                {label}
               </a>
             ))}
           </nav>
@@ -134,7 +152,6 @@ function Hero({ activeScene, setActiveScene }) {
           </picture>
         ))}
         <div className="hero-wash" />
-        <div className="grain" aria-hidden="true" />
       </div>
 
       <div className="relative mx-auto flex min-h-[100dvh] max-w-[1440px] flex-col justify-end px-5 pb-8 pt-32 md:px-8 md:pb-10 lg:px-12 lg:pb-12">
@@ -155,23 +172,23 @@ function Hero({ activeScene, setActiveScene }) {
           </div>
           <div className="availability" role="status">
             <i />
-            <span>Freehold ownership available</span>
+            <span>Register interest with Alef Group</span>
           </div>
         </div>
 
         <div className="hero-bottom grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(280px,0.85fr)] lg:items-end">
           <div>
             <p className="eyebrow text-white/75">Muwaileh, Sharjah <span /> Close access to E311</p>
-            <h1 className="hero-title" aria-label="Life, rooted.">
-              {'Life, rooted.'.split('').map((char, index) => (
+            <h1 className="hero-title" aria-label="Embrace life.">
+              {'Embrace life.'.split('').map((char, index) => (
                 <span className="char-clip" key={`${char}-${index}`}><i>{char === ' ' ? '\u00a0' : char}</i></span>
               ))}
             </h1>
           </div>
           <div className="hero-copy">
-            <p>A forest-inspired, walkable residential community where architecture, landscape, and everyday living are shaped by nature.</p>
+            <p>A modern retreat in Muwaileh where contemporary homes, Sharjah’s largest private community park and everyday life meet beneath the trees.</p>
             <div className="flex flex-wrap gap-3">
-              <a className="button button-light magnetic" href="#enquire">Discover Olfah <Arrow /></a>
+              <a className="button button-light magnetic" href="#panorama">Enter Olfah in 360° <Arrow /></a>
               <a className="button button-ghost" href="/assets/olfah-brochure.pdf" download>Brochure <Arrow /></a>
             </div>
           </div>
@@ -190,19 +207,19 @@ function Story() {
         <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-8 md:py-36 lg:px-12 lg:py-44">
           <div className="grid gap-16 lg:grid-cols-[0.72fr_1.28fr] lg:gap-24">
             <div data-reveal>
-              <p className="section-index">01 / The community</p>
+              <p className="section-index">The community</p>
               <p className="mt-10 max-w-sm text-[15px] leading-7 text-[#53604f]">Inspired by humanity. Built for community. Designed so daily life moves at the gentler pace of a walk through the trees.</p>
             </div>
             <div data-reveal>
-              <h2 className="display-heading">Nature and modernity,<br /><em>in quiet harmony.</em></h2>
-              <p className="mt-10 max-w-2xl text-lg leading-8 text-[#4b5548]">Twelve thoughtfully designed buildings rise between 9 and 11 floors, framing a fully walkable neighbourhood. Olfah sits a short distance from the Sharjah Academy for Astronomy, Space Sciences and Technology, with direct access to the wider city through the E311.</p>
+              <h2 className="display-heading">Nature at its largest.<br /><em>Life at its gentlest.</em></h2>
+              <p className="mt-10 max-w-2xl text-lg leading-8 text-[#4b5548]">Twelve thoughtfully designed buildings rise between 9 and 11 floors on a unified platform, framing an expansive walkable neighbourhood. Olfah sits next to the Sharjah Academy for Astronomy, Space Sciences and Technology, with close access to E311.</p>
             </div>
           </div>
 
           <div className="metrics mt-24 grid border-y border-[#20281f]/20 md:grid-cols-3 md:divide-x md:divide-[#20281f]/20 lg:mt-36">
-            <div data-reveal><strong>912,779</strong><span>Sq. ft. of total area</span></div>
-            <div data-reveal><strong>1, 2, 3</strong><span>Bedroom apartments</span></div>
-            <div data-reveal><strong>12</strong><span>Buildings across Olfah</span></div>
+            <div data-reveal><strong>84,814.40</strong><span>Square metres total area</span></div>
+            <div data-reveal><strong>57,529.6</strong><span>Square metres of green & recreation</span></div>
+            <div data-reveal><strong>12</strong><span>Buildings · 9–11 floors</span></div>
           </div>
         </div>
       </section>
@@ -214,7 +231,7 @@ function Story() {
           <div className="relative mx-auto flex min-h-[100dvh] max-w-[1440px] items-end px-5 pb-12 md:px-8 md:pb-16 lg:px-12 lg:pb-20">
             <div className="grid w-full gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
               <div>
-                <p className="section-index text-white/70">02 / A landscape to live in</p>
+                <p className="section-index text-white/70">A landscape to live in</p>
                 <h2 className="display-heading mt-8 text-white">Over 912,935 sq. ft.<br /><em>shaped around belonging.</em></h2>
               </div>
               <p className="max-w-xl text-base leading-7 text-white/80">A generous forest-inspired community where shaded paths, green roofs, pools and social spaces turn the landscape into the centre of everyday life.</p>
@@ -231,7 +248,7 @@ function Amenities() {
     <section id="amenities" className="amenities-run overflow-hidden bg-[#d8dfd0] text-[#20281f]">
       <div className="amenities-header mx-auto flex max-w-[1440px] items-end justify-between gap-8 px-5 pb-10 pt-20 md:px-8 md:pt-24 lg:px-12">
         <div>
-          <p className="section-index">03 / Amenities & community perks</p>
+          <p className="section-index">Amenities & community perks</p>
           <h2 className="display-heading mt-5">Find your rhythm.</h2>
         </div>
         <p className="hidden max-w-sm text-sm leading-6 text-[#53604f] md:block">Walkable paths, vibrant energy and secure spaces shape a life that feels beautifully intentional.</p>
@@ -243,7 +260,7 @@ function Amenities() {
               <img src={item.image} alt={item.title} loading="lazy" />
             </div>
             <div className="flex items-start justify-between gap-8 pt-5">
-              <h3>{item.title}</h3>
+              <div><h3>{item.title}</h3><p>{item.copy}</p></div>
               <span>{String(index + 1).padStart(2, '0')} / 06</span>
             </div>
           </article>
@@ -259,7 +276,7 @@ function Destination() {
       <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-8 md:py-36 lg:px-12 lg:py-44">
         <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
           <div className="lg:sticky lg:top-32 lg:self-start" data-reveal>
-            <p className="section-index">04 / A destination by Alef</p>
+            <p className="section-index">A destination by Alef</p>
             <h2 className="display-heading mt-8">A private park.<br /><em>A connected life.</em></h2>
             <p className="mt-8 max-w-md text-base leading-7 text-[#53604f]">Olfah pairs a calm forest setting with convenient access to E311, Sharjah and Dubai international airports, and Sharjah University City.</p>
           </div>
@@ -270,6 +287,7 @@ function Destination() {
                 <div><h3>{title}</h3><p>{copy}</p></div>
               </article>
             ))}
+            <p className="numbers-note">*Project numbers and specifications may vary. Confirm current availability directly with Alef Group.</p>
           </div>
         </div>
       </div>
@@ -283,7 +301,7 @@ function Residences() {
       <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-8 md:py-36 lg:px-12 lg:py-44">
         <div className="grid gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
           <div data-reveal>
-            <p className="section-index text-white/65">05 / The residences</p>
+            <p className="section-index text-white/65">The residences</p>
             <h2 className="display-heading mt-8 text-white">Space for every<br /><em>way of living.</em></h2>
           </div>
           <p className="max-w-xl text-base leading-7 text-white/80" data-reveal>World-class one, two and three bedroom apartments sit within 12 contemporary buildings. Green rooftops, considered balconies and calm interiors keep every home connected to the landscape beyond.</p>
@@ -291,7 +309,7 @@ function Residences() {
 
         <div className="residence-grid mt-20 grid gap-px overflow-hidden border border-white/25 bg-white/25 md:grid-cols-3 lg:mt-28">
           {['One bedroom', 'Two bedroom', 'Three bedroom'].map((title, index) => (
-            <article key={title} className="residence-type bg-[#b66f50] p-7 md:min-h-72 md:p-9" data-reveal>
+            <article key={title} className="residence-type bg-[#b66f50] p-7 md:min-h-72 md:p-9" data-residence>
               <span>0{index + 1}</span>
               <div><h3>{title}</h3><p>Olfah apartment</p></div>
             </article>
@@ -299,7 +317,7 @@ function Residences() {
         </div>
 
         <div className="mt-12 flex flex-wrap items-center justify-between gap-6 border-t border-white/25 pt-6 text-sm text-white/75">
-          <span>Building heights: 9–11 floors</span>
+          <span>Building heights: 9–11 floors · 1, 2 & 3 bedroom apartments</span>
           <a className="button button-light" href="/assets/olfah-brochure.pdf" download>Download brochure <Arrow /></a>
         </div>
       </div>
@@ -316,21 +334,87 @@ function Gallery({ openLightbox }) {
       <div className="mx-auto max-w-[1440px] px-5 pb-10 pt-24 md:px-8 md:pt-36 lg:px-12 lg:pt-44">
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <div>
-            <p className="section-index text-white/60">06 / Gallery</p>
+            <p className="section-index text-white/60">Gallery</p>
             <h2 className="display-heading mt-6 text-white">See life at Olfah.</h2>
           </div>
-          <div className="gallery-tabs" role="tablist" aria-label="Gallery categories">
-            {['exterior', 'interior'].map((name) => (
-              <button key={name} type="button" role="tab" aria-selected={tab === name} className={tab === name ? 'is-active' : ''} onClick={() => setTab(name)}>{name}</button>
-            ))}
+          <div className="gallery-actions">
+            <div className="gallery-tabs" role="tablist" aria-label="Gallery categories">
+              {['exterior', 'interior', 'night'].map((name) => (
+                <button key={name} type="button" role="tab" aria-selected={tab === name} className={tab === name ? 'is-active' : ''} onClick={() => setTab(name)}>{name}</button>
+              ))}
+            </div>
+            <a className="gallery-proof-link" href="/enhanced/">All high-resolution images <Arrow /></a>
           </div>
         </div>
       </div>
       <div className="gallery-grid px-5 pb-24 md:px-8 md:pb-36 lg:px-12 lg:pb-44">
         {images.map((image, index) => (
-          <button key={image} className="gallery-item" type="button" onClick={() => openLightbox({ images, index })} aria-label={`Open ${tab} image ${index + 1}`}>
-            <img src={image} alt={`${tab === 'exterior' ? 'Exterior architecture' : 'Interior residence'} at Olfah`} loading="lazy" />
+          <button key={image} className="gallery-item" type="button" data-gallery-item onClick={() => openLightbox({ images, index })} aria-label={`Open ${tab} image ${index + 1}`}>
+            <img src={image} alt={`${tab === 'exterior' ? 'Exterior architecture' : tab === 'interior' ? 'Interior residence' : 'Blue-hour landscape'} at Olfah`} loading="lazy" />
             <span>{String(index + 1).padStart(2, '0')}</span>
+          </button>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function AfterDark() {
+  return (
+    <section className="after-dark" aria-labelledby="after-dark-title">
+      <div className="after-dark-intro" data-reveal>
+        <p className="section-index">Olfah after dark</p>
+        <h2 id="after-dark-title" className="display-heading">When the garden<br /><em>begins to glow.</em></h2>
+        <p>At blue hour, discreet light beneath the trees, along pathways and across the water turns the park into a calm evening landscape—warm, legible and never overlit.</p>
+      </div>
+      <div className="night-panels">
+        {nightScenes.map((scene, index) => (
+          <figure className="night-panel" key={scene.title} data-night-panel>
+            <img src={scene.image} alt={`${scene.title} at Olfah during blue hour`} loading="lazy" />
+            <figcaption>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <div><strong>{scene.title}</strong><small>{scene.label}</small></div>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function PanoramaExperience() {
+  const [scene, setScene] = useState('pool')
+  const active = panoramaScenes.find((item) => item.id === scene) ?? panoramaScenes[0]
+
+  return (
+    <section id="panorama" className="panorama-experience" aria-labelledby="panorama-title">
+      <div className="panorama-copy" data-reveal>
+        <div>
+          <p className="section-index">Eight immersive viewpoints</p>
+          <h2 id="panorama-title" className="display-heading">Stand inside<br /><em>the landscape.</em></h2>
+        </div>
+        <div className="panorama-intro-copy">
+          <p>Move through Olfah at eye level—from the pool and woodland walk to the central lawn, fitness plaza, evening promenade and a finished apartment.</p>
+          <a className="button button-light" href={`/360/index.html?scene=${scene}`} target="_blank" rel="noreferrer">Open fullscreen <Arrow /></a>
+        </div>
+      </div>
+
+      <div className="panorama-stage" data-panorama-stage>
+        <iframe
+          key={scene}
+          src={`/360/index.html?scene=${scene}&embed=1`}
+          title={`Interactive 360° view: ${active.title}`}
+          loading="eager"
+          allow="fullscreen; accelerometer; gyroscope"
+        />
+        <div className="panorama-stage-label" aria-hidden="true"><span>Now exploring</span><strong>{active.title}</strong></div>
+      </div>
+
+      <div className="panorama-scenes" role="group" aria-label="Choose a panorama scene">
+        {panoramaScenes.map((item) => (
+          <button key={item.id} type="button" className={scene === item.id ? 'is-active' : ''} aria-pressed={scene === item.id} onClick={() => setScene(item.id)}>
+            <span className="panorama-thumb"><img src={item.image} alt="" aria-hidden="true" loading="lazy" /></span>
+            <span className="panorama-scene-copy"><strong>{item.title}</strong><small>{item.note}</small></span>
           </button>
         ))}
       </div>
@@ -344,7 +428,7 @@ function Location() {
       <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-8 md:py-36 lg:px-12 lg:py-44">
         <div className="grid gap-16 lg:grid-cols-[0.76fr_1.24fr] lg:items-center lg:gap-24">
           <div data-reveal>
-            <p className="section-index">07 / Location</p>
+            <p className="section-index">Location</p>
             <h2 className="display-heading mt-8">Close to the city.<br /><em>Closer to nature.</em></h2>
             <p className="mt-8 max-w-md text-base leading-7 text-[#53604f]">A prime residential address near Sharjah University City and the Sharjah Academy for Astronomy, Space Sciences and Technology, with close access to E311 and both Sharjah and Dubai international airports.</p>
             <div className="location-links mt-10 border-t border-[#20281f]/20">
@@ -391,7 +475,7 @@ function Enquiry() {
           </div>
         </div>
         <div className="px-5 py-20 md:px-12 md:py-24 lg:px-16 lg:py-28">
-          <p className="section-index">08 / Register your interest</p>
+          <p className="section-index">Register your interest</p>
           <h2 className="display-heading mt-7">Find your perfect<br /><em>space at Olfah.</em></h2>
           <p className="mt-6 max-w-lg text-base leading-7 text-[#53604f]">Contact the Alef sales team or complete the form to enquire about owning a spacious apartment at Olfah.</p>
 
@@ -450,8 +534,8 @@ function Footer() {
             <p className="mt-7 max-w-lg text-sm leading-7 text-white/65">Alef is a premier real estate developer in the UAE, creating premium lifestyle communities, world-class destinations and enduring experiences through strategic investments and joint ventures.</p>
           </div>
           <div className="grid grid-cols-2 gap-8 text-sm sm:grid-cols-3">
-            <div><h3>Explore</h3><a href="#story">Community</a><a href="#amenities">Amenities</a><a href="#residences">Residences</a></div>
-            <div><h3>Connect</h3><a href="#location">Location</a><a href="#enquire">Enquire</a><a href="/assets/olfah-brochure.pdf" download>Brochure</a></div>
+            <div><h3>Explore</h3><a href="#story">Community</a><a href="#amenities">Amenities</a><a href="#residences">Residences</a><a href="/enhanced/">Enhanced imagery</a></div>
+            <div><h3>Connect</h3><a href="#location">Location</a><a href="#enquire">Enquire</a><a href="/assets/olfah-brochure.pdf" download>Brochure</a><a href="/360/index.html">360° experience</a></div>
             <div><h3>Official</h3><a href="https://www.alefgroup.ae/alef-communities/olfah/" target="_blank" rel="noreferrer">Project page</a><a href="https://www.alefgroup.ae/contact-us/" target="_blank" rel="noreferrer">Contact</a><a href="https://www.alefgroup.ae/privacy-policy/" target="_blank" rel="noreferrer">Privacy</a></div>
           </div>
         </div>
@@ -520,6 +604,7 @@ export default function App() {
   useEffect(() => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const jump = new URLSearchParams(window.location.search).get('jump')
+    let active = true
     let lenis
     let ticker
 
@@ -571,6 +656,37 @@ export default function App() {
             scrollTrigger: { trigger: element, start: 'top 86%', once: true },
           })
         })
+
+        gsap.utils.toArray('[data-gallery-item]').forEach((element) => {
+          const image = element.querySelector('img')
+          if (!image) return
+          gsap.fromTo(image,
+            { scale: 0.92, opacity: 0.72 },
+            {
+              scale: 1,
+              opacity: 1,
+              ease: 'none',
+              scrollTrigger: { trigger: element, start: 'top 94%', end: 'center 58%', scrub: 0.7 },
+            },
+          )
+        })
+
+        gsap.from('[data-residence]', {
+          y: 76,
+          opacity: 0,
+          stagger: 0.14,
+          ease: 'power4.out',
+          scrollTrigger: { trigger: '.residence-grid', start: 'top 82%', end: 'top 48%', scrub: 0.8 },
+        })
+
+        gsap.utils.toArray('[data-night-panel]').forEach((panel) => {
+          const image = panel.querySelector('img')
+          gsap.fromTo(image,
+            { scale: 1.08 },
+            { scale: 1, ease: 'none', scrollTrigger: { trigger: panel, start: 'top bottom', end: 'bottom top', scrub: 0.8 } },
+          )
+        })
+
       }
 
       ScrollTrigger.create({
@@ -590,13 +706,14 @@ export default function App() {
           const rect = element.getBoundingClientRect()
           gsap.to(element, { x: (event.clientX - rect.left - rect.width / 2) * 0.12, y: (event.clientY - rect.top - rect.height / 2) * 0.12, duration: 0.35, ease: 'power3.out' })
         }
-        const leave = () => gsap.to(element, { x: 0, y: 0, duration: 0.55, ease: 'elastic.out(1, 0.4)' })
+        const leave = () => gsap.to(element, { x: 0, y: 0, duration: 0.55, ease: 'power4.out' })
         element.addEventListener('pointermove', move)
         element.addEventListener('pointerleave', leave)
       })
     }, appRef)
 
     document.fonts.ready.then(() => {
+      if (!active) return
       ScrollTrigger.refresh()
       if (jump !== null) {
         window.scrollTo(0, Number(jump) || 0)
@@ -606,6 +723,7 @@ export default function App() {
     })
 
     return () => {
+      active = false
       if (ticker) gsap.ticker.remove(ticker)
       if (lenis) lenis.destroy()
       context.revert()
@@ -618,12 +736,14 @@ export default function App() {
     <div ref={appRef}>
       <div className="page-progress" aria-hidden="true" />
       <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <main>
+      <main className="w-full max-w-full overflow-x-hidden">
         <Hero activeScene={activeScene} setActiveScene={setActiveScene} />
         <Story />
         <Amenities />
         <Destination />
         <Residences />
+        <AfterDark />
+        <PanoramaExperience />
         <Gallery openLightbox={setLightbox} />
         <Location />
         <Enquiry />
