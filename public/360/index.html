@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1f291f" />
+    <meta name="description" content="Explore the Olfah pool courtyard in an interactive 360-degree panorama." />
+    <title>Olfah Pool Courtyard — 360° View</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./vendor/pannellum.css" />
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: "Figtree", sans-serif;
+        --ink: #1f291f;
+        --ivory: #f2efe6;
+        --sage: #cbd4c2;
+      }
+
+      * { box-sizing: border-box; }
+      html, body, main, #panorama { width: 100%; height: 100%; }
+      html, body { margin: 0; overflow: hidden; background: var(--ink); }
+      button, a { font: inherit; -webkit-tap-highlight-color: transparent; }
+
+      #panorama { position: fixed; inset: 0; }
+      #panorama::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: linear-gradient(180deg, rgba(13, 20, 14, .28), transparent 27%, transparent 72%, rgba(13, 20, 14, .22));
+      }
+
+      .chrome {
+        position: fixed;
+        inset: 0;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+        pointer-events: none;
+      }
+
+      .topbar, .bottombar { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+      .brand, .viewer-actions, .hint, .back { pointer-events: auto; }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        color: white;
+      }
+
+      .brand img { width: 58px; filter: brightness(0) invert(1); }
+      .brand::after { content: ""; width: 1px; height: 28px; background: rgba(255,255,255,.32); }
+      .brand-copy { display: grid; gap: 2px; }
+      .brand-copy strong { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
+      .brand-copy span { color: rgba(255,255,255,.64); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+
+      .viewer-actions { display: flex; align-items: center; gap: 8px; }
+      .control, .back {
+        min-height: 42px;
+        border: 1px solid rgba(255,255,255,.3);
+        color: white;
+        background: rgba(24, 34, 24, .42);
+        backdrop-filter: blur(14px);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+        cursor: pointer;
+        transition: background-color .25s ease, border-color .25s ease, transform .15s ease;
+      }
+      .control:hover, .back:hover { background: rgba(24,34,24,.72); border-color: rgba(255,255,255,.6); }
+      .control:active, .back:active { transform: scale(.97); }
+      .control { display: inline-grid; width: 42px; place-items: center; padding: 0; }
+      .control[hidden] { display: none; }
+      .control svg { width: 16px; height: 16px; }
+      .back { display: inline-flex; align-items: center; gap: 12px; padding: 0 16px; font-size: 9px; font-weight: 600; letter-spacing: .13em; text-decoration: none; text-transform: uppercase; }
+      .back svg { width: 14px; }
+
+      .hint {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        max-width: 330px;
+        color: white;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: .13em;
+        text-transform: uppercase;
+        transition: opacity .6s ease, transform .6s ease;
+      }
+      .hint::before { content: ""; width: 34px; height: 1px; background: rgba(255,255,255,.58); }
+      .hint.is-hidden { opacity: 0; transform: translateY(8px); }
+
+      .intro {
+        position: fixed;
+        inset: 0;
+        z-index: 5;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        color: white;
+        background: rgba(21, 29, 21, .72);
+        backdrop-filter: blur(16px);
+        transition: opacity .8s ease, visibility .8s;
+      }
+      .intro.is-ready { opacity: 0; visibility: hidden; pointer-events: none; }
+      .intro-inner { max-width: 560px; text-align: center; }
+      .intro-label { font-size: 9px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--sage); }
+      .intro h1 { margin: 18px 0 14px; font-size: clamp(40px, 7vw, 82px); font-weight: 500; line-height: .94; letter-spacing: -.055em; }
+      .intro p { max-width: 460px; margin: 0 auto; color: rgba(255,255,255,.7); font-size: 14px; line-height: 1.7; }
+      .loading-line { width: 180px; height: 1px; margin: 28px auto 0; overflow: hidden; background: rgba(255,255,255,.18); }
+      .loading-line::after { content: ""; display: block; width: 45%; height: 100%; background: var(--sage); animation: load 1.3s ease-in-out infinite; }
+
+      .pnlm-controls-container { top: 50%; left: 16px; transform: translateY(-50%); z-index: 4; }
+      .pnlm-controls { overflow: hidden; border-color: rgba(255,255,255,.38); border-radius: 0; background: rgba(242,239,230,.9); backdrop-filter: blur(12px); box-shadow: inset 0 1px 0 rgba(255,255,255,.55); }
+      .pnlm-control:hover { background-color: #ffffff; }
+      .pnlm-orientation-button { display: none !important; }
+      .pnlm-panorama-info { display: none !important; }
+
+      @keyframes load { 0% { transform: translateX(-120%); } 100% { transform: translateX(330%); } }
+
+      @media (max-width: 640px) {
+        .chrome { padding-left: 14px; padding-right: 14px; }
+        .brand-copy { display: none; }
+        .brand::after { display: none; }
+        .brand img { width: 52px; }
+        .hint { max-width: 190px; font-size: 8px; line-height: 1.5; }
+        .back span { display: none; }
+        .back { width: 42px; padding: 0; justify-content: center; }
+        .pnlm-controls-container { left: 10px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <main aria-label="Interactive Olfah 360-degree panorama">
+      <div id="panorama" aria-label="Drag to explore the Olfah pool courtyard in 360 degrees"></div>
+
+      <div class="intro" id="intro" role="status" aria-live="polite">
+        <div class="intro-inner">
+          <span class="intro-label">Interactive 360° experience</span>
+          <h1>Step into Olfah.</h1>
+          <p>Loading the pool courtyard. Once ready, drag to look around, scroll or pinch to zoom, and use the controls for fullscreen or motion view.</p>
+          <div class="loading-line" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <div class="chrome">
+        <div class="topbar">
+          <div class="brand">
+            <img src="../assets/olfah-logo.svg" alt="Olfah" />
+            <div class="brand-copy"><strong>Pool courtyard</strong><span>360° panorama</span></div>
+          </div>
+          <div class="viewer-actions">
+            <button class="control" id="gyro" type="button" aria-label="Start motion view" title="Start motion view" hidden>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="7.5" stroke="currentColor" stroke-width="1.5"/><path d="m12 8 2.2 6-6-2.2L12 8Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="control" id="fullscreen" type="button" aria-label="Enter fullscreen" title="Enter fullscreen">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5H5v4m10-4h4v4M9 19H5v-4m10 4h4v-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="control" id="rotate" type="button" aria-label="Pause automatic rotation" title="Pause automatic rotation">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </button>
+            <a class="back" href="../" aria-label="Back to Olfah landing page">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m5-5-5 5 5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Back to Olfah</span>
+            </a>
+          </div>
+        </div>
+        <div class="bottombar">
+          <div class="hint" id="hint">Drag to look around · scroll to zoom</div>
+        </div>
+      </div>
+    </main>
+
+    <script src="./vendor/pannellum.js"></script>
+    <script>
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const viewer = pannellum.viewer('panorama', {
+        type: 'equirectangular',
+        panorama: '../assets/olfah-pool-360.png',
+        autoLoad: true,
+        autoRotate: reducedMotion ? false : -1.35,
+        autoRotateInactivityDelay: 3200,
+        compass: false,
+        showZoomCtrl: true,
+        showFullscreenCtrl: false,
+        orientationOnByDefault: false,
+        keyboardZoom: true,
+        mouseZoom: true,
+        draggable: true,
+        hfov: 106,
+        minHfov: 42,
+        maxHfov: 118,
+        pitch: -4,
+        yaw: 0,
+        fallback: '../assets/olfah-pool-360.png'
+      });
+
+      const intro = document.getElementById('intro');
+      const hint = document.getElementById('hint');
+      const rotateButton = document.getElementById('rotate');
+      const fullscreenButton = document.getElementById('fullscreen');
+      const gyroButton = document.getElementById('gyro');
+      let rotating = !reducedMotion;
+      let motionView = false;
+
+      viewer.on('load', () => {
+        intro.classList.add('is-ready');
+        intro.setAttribute('aria-live', 'off');
+        gyroButton.hidden = !viewer.isOrientationSupported();
+        window.setTimeout(() => hint.classList.add('is-hidden'), 5200);
+      });
+
+      fullscreenButton.addEventListener('click', () => viewer.toggleFullscreen());
+
+      gyroButton.addEventListener('click', () => {
+        motionView = !motionView;
+        if (motionView) {
+          viewer.stopAutoRotate();
+          rotating = false;
+          viewer.startOrientation();
+          gyroButton.setAttribute('aria-label', 'Stop motion view');
+          gyroButton.setAttribute('title', 'Stop motion view');
+        } else {
+          viewer.stopOrientation();
+          gyroButton.setAttribute('aria-label', 'Start motion view');
+          gyroButton.setAttribute('title', 'Start motion view');
+        }
+      });
+
+      rotateButton.addEventListener('click', () => {
+        rotating = !rotating;
+        if (rotating) {
+          viewer.startAutoRotate(-1.35, 0);
+          rotateButton.setAttribute('aria-label', 'Pause automatic rotation');
+          rotateButton.setAttribute('title', 'Pause automatic rotation');
+          rotateButton.innerHTML = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+        } else {
+          viewer.stopAutoRotate();
+          rotateButton.setAttribute('aria-label', 'Start automatic rotation');
+          rotateButton.setAttribute('title', 'Start automatic rotation');
+          rotateButton.innerHTML = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>';
+        }
+      });
+
+      window.__ready = false;
+      viewer.on('load', () => { window.__ready = true; });
+    </script>
+  </body>
+</html>
