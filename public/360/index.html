@@ -231,9 +231,9 @@
           keyboardZoom: true,
           mouseZoom: true,
           draggable: true,
-          hfov: 122,
+          hfov: 112,
           minHfov: 42,
-          maxHfov: 140,
+          maxHfov: 125,
           pitch: -4,
           yaw: 0
         },
@@ -283,7 +283,7 @@
           const nextScene = button.dataset.scene;
           if (nextScene === viewer.getScene()) return;
           syncSceneControls(nextScene);
-          viewer.loadScene(nextScene, -4, 0, 122);
+          viewer.loadScene(nextScene, -4, 0, 112);
           window.history.replaceState({}, '', `${window.location.pathname}?scene=${nextScene}`);
         });
       });
